@@ -1,8 +1,6 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:task_manager/ui/utils/assets_path.dart';
 import 'package:task_manager/ui/widgets/screen_background.dart';
-import '';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -25,7 +23,7 @@ class _LoginScreenState extends State<LoginScreen> {
               height: 80,
             ),
              Text(
-              'Get Started ',
+              'Get Started with',
               style: Theme.of(context).textTheme.titleLarge,
             ),
             const SizedBox(height: 24),
@@ -47,28 +45,33 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: const Icon(Icons.arrow_circle_right)),
             const SizedBox(height: 24),
             TextButton(onPressed: () {}, child: Text("Forgot Password")),
-            RichText(text: const TextSpan(
-              style: TextStyle(
+            RichText(text: TextSpan(
+              style: const TextStyle(
                 color: Colors.black54,
                 fontWeight: FontWeight.w500,
                 fontSize: 14
               ),
               children: [
-                TextSpan(
+               const TextSpan(
                   text: "Dont Have account?"
                 ),
                 TextSpan(
-                  text: "Sign in ", style: TextStyle(
+                  text: "Sign in ", style: const TextStyle(
                   color: Colors.green,
                   fontWeight: FontWeight.bold
-                )
+                ),
+                  recognizer: TapGestureRecognizer()
+                    // ..onTap = ,
                 )
               ]
 
-            ))
+            ),
+            ),
           ],
                 ),
         )),
     );
   }
+  void _onTapForgotPasswordButton() {}
+  void _onTapSignInButton() {}
 }
