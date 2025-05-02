@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:task_manager/ui/screen/forgot_password_verify.dart';
+import 'package:task_manager/ui/screen/main_bottom_nav_screen.dart';
 import 'package:task_manager/ui/screen/register_screen.dart';
 import 'package:task_manager/ui/widgets/screen_background.dart';
 
@@ -53,7 +54,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 const SizedBox(height: 16),
                 ElevatedButton(
-                    onPressed: () {},
+                    onPressed: _onTapSignInButton,
                     child: const Icon(Icons.arrow_circle_right)),
                 const SizedBox(height: 24),
                 Center(
@@ -90,6 +91,12 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
+  void _onTapSignInButton() {
+    Navigator.pushAndRemoveUntil(
+        context, MaterialPageRoute(builder: (context) => const MainBottomNavScreen()),
+        (pre) => false,
+    );
+  }
   void _onTapForgotPasswordButton() {
     Navigator.push((context),
         MaterialPageRoute(builder: (context) => const ForgotPasswordVerify()));

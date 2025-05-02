@@ -1,23 +1,20 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:task_manager/ui/screen/login_screen.dart';
-import 'package:task_manager/ui/screen/reset_password_screen.dart';
 import 'package:task_manager/ui/widgets/screen_background.dart';
 
-class PinVerificationScreen extends StatefulWidget {
-  const PinVerificationScreen({super.key});
+class ResetPasswordScreen extends StatefulWidget {
+  const ResetPasswordScreen({super.key});
 
   @override
-  State<PinVerificationScreen> createState() => _PinVerificationScreenState();
+  State<ResetPasswordScreen> createState() => _ResetPasswordScreenState();
 }
 
-class _PinVerificationScreenState extends State<PinVerificationScreen> {
-  final TextEditingController _pinCodeTEController = TextEditingController();
+class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
+  final TextEditingController _newPasswordTEController = TextEditingController();
+  final TextEditingController _confirmNewPasswordTEController = TextEditingController();
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -35,42 +32,38 @@ class _PinVerificationScreenState extends State<PinVerificationScreen> {
                       height: 80,
                     ),
                     Text(
-                      'Pin Verification',
+                      'Set Password',
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
                     const SizedBox(height: 4,),
                     Text(
-                      "A 6 digit verification pin will be sent to your email.",
+                      "Now you can change your new password at password will be 6 digit",
                       style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                           color: Colors.grey
                       ),
                     ),
                     const SizedBox(height: 24),
-                    PinCodeTextField(
-                      keyboardType: TextInputType.number,
-                      length: 6,
-                      obscureText: false,
-                      animationType: AnimationType.fade,
-                      pinTheme: PinTheme(
-                        shape: PinCodeFieldShape.box,
-                        borderRadius: BorderRadius.circular(5),
-                        fieldHeight: 50,
-                        fieldWidth: 40,
-                        activeFillColor: Colors.white,
-                        activeColor: Colors.white70,
-                        selectedFillColor: Colors.green,
-                        inactiveFillColor: Colors.white,
+                    TextFormField(
+                      textInputAction: TextInputAction.next,
+                      keyboardType: TextInputType.emailAddress,
+                      controller: _newPasswordTEController,
+                      decoration: InputDecoration(
+                        hintText: 'New Password',
                       ),
-                      animationDuration: Duration(milliseconds: 300),
-                      backgroundColor: Colors.transparent,
-                      enableActiveFill: true,
-                      controller: _pinCodeTEController,
-                      appContext: context,
+                    ),
+                    const SizedBox(height: 16),
+                    TextFormField(
+                      textInputAction: TextInputAction.next,
+                      keyboardType: TextInputType.emailAddress,
+                      controller: _confirmNewPasswordTEController,
+                      decoration: InputDecoration(
+                        hintText: 'Confirm New Password',
+                      ),
                     ),
                     const SizedBox(height: 16),
                     ElevatedButton(
                         onPressed: _onTapSubmitButton,
-                        child: const Text('Verify')),
+                        child: const Text('Confirm')),
                     const SizedBox(height: 24),
                     Center(
                       child: Column(children: [
@@ -104,11 +97,20 @@ class _PinVerificationScreenState extends State<PinVerificationScreen> {
           )),
     );
   }
- void _onTapSubmitButton() {
+  void _onTapSubmitButton() {
     Navigator.push((context),
-    MaterialPageRoute(builder: (context) => const ResetPasswordScreen()));
- }
+        MaterialPageRoute(builder: (context) => const LoginScreen()));
+  }
+
   void _onTapSignInButton() {
-    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const LoginScreen()), (pre) => false);
+    Navigator.push((context),
+        MaterialPageRoute(builder: (context) => const LoginScreen()));
+  }
+
+  @override
+  void dispose() {
+    _newPasswordTEController.dispose();
+    _confirmNewPasswordTEController.dispose();
+    super.dispose();
   }
 }
